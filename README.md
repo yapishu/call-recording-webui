@@ -17,6 +17,8 @@ to install:
 - edit `Caddyfile` to use your domain where it says `mydomain.com`
 - run `docker-compose up -d` to build the stack
 - open your domain in a browser to make sure it works
+- login with the username `admin` and whatever password you want for the admin user
+- go to the `/admin` path to create and manage other non-admin users
 - configure 3cx to deposit recordings:
 
 ![](https://i.imgur.com/5Ue8bKu.png)
