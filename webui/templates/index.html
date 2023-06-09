@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <title>3CX Call Recordings</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/ajax_table_example.js') }}"></script>
+
+    <script>
+        function sortTable(n) {
+          var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+          table = document.getElementById("maintable");
+          switching = true;
+          dir = "asc";
+          while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+              shouldSwitch = false;
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+            }
+            if (shouldSwitch) {
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              switchcount ++;
+            } else {
+              if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+              }
+            }
+          }
+        }
+        </script>
+        <script>
+          window.addEventListener("load", function() {
+              var now = new Date();
+              var utcString = now.toISOString().substring(0,19);
+              var year = now.getFullYear();
+              var month = now.getMonth() + 1;
+              var day = now.getDate();
+              var hour = now.getHours();
+              var minute = now.getMinutes();
+              var second = 0;
+              var localDatetime = year + "-" +
+                              (month < 10 ? "0" + month.toString() : month) + "-" +
+                              (day < 10 ? "0" + day.toString() : day) + "T" +
+                              (hour < 10 ? "0" + hour.toString() : hour) + ":" +
+                              (minute < 10 ? "0" + minute.toString() : minute);
+              var datetimeField = document.getElementById("endtime");
+              datetimeField.value = localDatetime;
+              var oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+              var prev_year = oneWeekAgo.getFullYear();
+              var prev_month = oneWeekAgo.getMonth() + 1;
+              var prev_day = oneWeekAgo.getDate();
+              var prev_hour = oneWeekAgo.getHours();
+              var prev_minute = oneWeekAgo.getMinutes();
+              var prev_localDatetime = prev_year + "-" +
+                                  (prev_month < 10 ? "0" + prev_month.toString() : prev_month) + "-" +
+                                  (prev_day < 10 ? "0" + prev_day.toString() : prev_day) + "T" +
+                                  (prev_hour < 10 ? "0" + prev_hour.toString() : prev_hour) + ":" +
+                                  (prev_minute < 10 ? "0" + prev_minute.toString() : prev_minute);
+              var prev_datetimeField = document.getElementById("starttime");
+              prev_datetimeField.value = prev_localDatetime;
+          });
+      </script>
+</head>
+<body>
+
+<div style="text-align:center;">
+    <h2> 3CX Call Recordings </h2>
+</div>
+
+
+<div class="container">
+
+<form enctype="multipart/form-data" action='search' method="GET">
+    <div style="text-align:center;">
+            <form action="/search" method="GET" onsubmit="myButton.disabled = true; return true;">
+                <label for="key">Search field </label>
+                <select id="key" name="key">
+                  <option value="phone">phone</option>
+                <option value="ext">ext</option>
+                <option value="uuid">uuid</option>
+                </select>
+                <label for="value">Value:</label>
+                <input type="text" id="value" name="value" width="500px">
+                Start <input type="datetime-local" name="starttime" id="starttime">
+                End <input type="datetime-local" name="endtime" id="endtime">
+                <input type="submit" value="Search">
+            </form>
+    </div>
+</form>
+
+<table id="maintable" class="table">
+    <thead>
+        <tr>
+            <th scope="col">audio</th>
+            {% for col in data.columns %}
+            <th scope="col">{{ col }}<a href="#" onclick="sortTable({{ loop.index }});return false;">⮃</a></th>
+                {% endfor %}
+            <th scope="col">dl</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for key, value in data.iterrows() %}
+        <tr>
+            <td scope="row"><audio controls src="/stream/{{ value['uuid'] }}" preload="none"></audio></td>
+                {% for k in value %}
+            <td scope="row">{{ k }}</td>
+                {% endfor %}
+            <td scope="row"><a href="/stream/{{ value['uuid'] }}?download=true" download target="_blank">💾</a></td>
+        </tr>
+            {% endfor %}
+    </tbody>
+</table>
+</div>
+
+</body>
+</html>

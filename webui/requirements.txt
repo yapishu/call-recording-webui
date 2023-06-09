@@ -1,0 +1,9 @@
+Flask==2.3.2
+pysqlite3==0.4.7
+pydub==0.25.1
+pandas==2.0.1
+WSGIserver==1.3
+Flask-APScheduler==1.12.4
+boto3==1.26.151
+gevent==22.10.2
+botocore==1.29.151

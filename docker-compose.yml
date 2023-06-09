@@ -1,0 +1,40 @@
+---
+version: '3.3'
+services:
+  sftp:
+    image: atmoz/sftp
+    volumes:
+      - ./recordings:/home/rec/recs
+    ports:
+      - "2222:22"
+    expose:
+      - '2222'
+    command: rec:${SFTP_PW}:1001::rec
+  caddy:
+    image: caddy:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./log:/var/log/caddy
+      - ./caddy/data:/data
+    restart: always
+  webui:
+    build: 
+      context: ./webui
+      dockerfile: Dockerfile
+    container_name: webui
+    volumes:
+      - ./recordings:/opt/recs
+    environment:
+      - RECDIR=/opt/recs
+      - S3_ACCESS
+      - S3_SECRET
+      - S3_BUCKET
+      - IF_S3
+      - SECRET_KEY
+    restart: unless-stopped
+volumes:
+  sftp:
+    driver: local

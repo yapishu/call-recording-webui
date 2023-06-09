@@ -1,0 +1,57 @@
+<!-- admin.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="text-center">Users</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+            <td><b>{{ user[0] }}</b></td>
+            <td>
+              <div class="d-flex justify-content-between">
+                <form action="{{ url_for('update') }}" method="post" class="mr-2">
+                  <input type="hidden" name="username" value="{{ user.username }}">
+                  <input type="text" name="password" class="form-control" placeholder="New password">
+                  <input type="submit" class="btn btn-primary" value="Update password">
+                </form>
+                <form action="{{ url_for('delete', username=user.username) }}" method="post">
+                  <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2">
+              <form action="{{ url_for('add_user') }}" method="post" class="d-flex justify-content-between">
+                <input type="text" name="username" class="form-control mr-2" placeholder="New username">
+                <input type="text" name="password" class="form-control mr-2" placeholder="New password">
+                <input type="submit" class="btn btn-success" value="Add User">
+              </form>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
