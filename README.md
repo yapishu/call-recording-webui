@@ -1,6 +1,9 @@
 # Call recording server
 
-perhaps you are like me and saw that you can run a [3CX PBX](https://www.youtube.com/watch?v=n_1wX7kKx7k) for close to free using aws chime for sip trunking. perhaps you are also like me and noticed that that automatically provisioned debian vps has like 7gb of disk. this repo is a solution to the problem of "well what do i do with all these call recordings then?"
+| 3CX is a trademark of 3CX SOFTWARE DMCC. i have no affiliation with 3CX SOFTWARE DMCC. this is an open source project i made for fun. |
+| - |
+
+perhaps you are like me and saw that you can run a [3cx pbx](https://www.youtube.com/watch?v=n_1wX7kKx7k) for close to free using aws chime for sip trunking. perhaps you are also like me and noticed that that automatically provisioned debian vps has like 7gb of disk. this repo is a solution to the problem of "well what do i do with all these call recordings then?"
 
 this project is a compose stack that runs an sftp server which shares a volume with a flask webapp. configure 3cx to deposit your recordings on the sftp server and they will automatically be compressed, indexed, uploaded to s3, and searchable via the webui.
 
@@ -27,5 +30,3 @@ to install:
 
 3cx will deposit the files once a day; the server will check every 6 hours for new files, add them to a sqlite db, compress to mp4, upload to s3, and serve a searchable list of your files. when you play or download a file from the index, it streams from s3, freeing up your precious disk. ganbatte!
 
-| 3CX is a trademark of 3CX SOFTWARE DMCC. i have no affiliation with 3CX SOFTWARE DMCC. this is an open source project i made for fun. |
-| - |
