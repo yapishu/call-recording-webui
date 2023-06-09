@@ -32,7 +32,7 @@ services:
       - S3_ACCESS
       - S3_SECRET
       - S3_BUCKET
-      - IF_S3
+      - IF_S3=yes
       - SECRET_KEY
     restart: unless-stopped
 volumes:
