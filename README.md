@@ -1,11 +1,11 @@
 # Call recording server
 
+| 3CX is a trademark of 3CX SOFTWARE DMCC. i have no affiliation with 3CX SOFTWARE DMCC. this is an open source project i made for fun. |
+| - | 
+
 ![](https://i.imgur.com/iiHHXW0.png)
 
 ![](https://i.imgur.com/qgfdRnP.png)
-
-| 3CX is a trademark of 3CX SOFTWARE DMCC. i have no affiliation with 3CX SOFTWARE DMCC. this is an open source project i made for fun. |
-| - |
 
 perhaps you are like me and saw that you can run a [3cx pbx](https://www.youtube.com/watch?v=n_1wX7kKx7k) for close to free using aws chime for sip trunking. perhaps you are also like me and noticed that that automatically provisioned debian vps has like 7gb of disk. this repo is a solution to the problem of "well what do i do with all these call recordings then?"
 
