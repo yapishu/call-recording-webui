@@ -1,5 +1,9 @@
 # Call recording server
 
+![](https://i.imgur.com/iiHHXW0.png)
+
+![](https://i.imgur.com/qgfdRnP.png)
+
 | 3CX is a trademark of 3CX SOFTWARE DMCC. i have no affiliation with 3CX SOFTWARE DMCC. this is an open source project i made for fun. |
 | - |
 
