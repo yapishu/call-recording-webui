@@ -256,11 +256,12 @@ def s3_upload(filepath, acl="bucket-owner-full-control"):
     except Exception as e:
         print("Error uploading: ", e)
         return e
-    try:
-        os.remove(filepath)
-        print(f"{filepath} deleted from disk.")
-    except OSError as e:
-        print(f"Error deleting {filepath}: {e}")
+    if 'db.sq3' not in filepath:
+        try:
+            os.remove(filepath)
+            print(f"{filepath} deleted from disk.")
+        except OSError as e:
+            print(f"Error deleting {filepath}: {e}")
     return filename
 
 
