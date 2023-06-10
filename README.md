@@ -16,7 +16,7 @@ to install:
 - clone this repo on a vps that has ports 80, 443, and 2222 open
 - set a dns record for your server
 - set the following env vars in your `.env` file
-        - `SFTP_PW` - password for your sftp server (user is `rec`)
+	- `SFTP_PW` - password for your sftp server (user is `rec`)
 	- `S3_ACCESS` - aws s3 access key
 	- `S3_SECRET` - aws s3 secret key
 	- `S3_BUCKET` - name of your aws s3 bucket
