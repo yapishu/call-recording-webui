@@ -15,13 +15,14 @@ to install:
 
 - clone this repo on a vps that has ports 80, 443, and 2222 open
 - set a dns record for your server
-- set the following env vars in your `.env` file
+- set the following env vars in your `.env` file in the same directory as your `docker-compose.yml`:
 	- `SFTP_PW` - password for your sftp server (user is `rec`)
 	- `S3_ACCESS` - aws s3 access key
 	- `S3_SECRET` - aws s3 secret key
 	- `S3_BUCKET` - name of your aws s3 bucket
 	- `SECRET_KEY` (random string for cookies)
-	- (i dunno if other s3 providers work but you're probably already on aws anyway)
+		- (i dunno if other s3 providers work but you're probably already on aws anyway)
+	- `COUNTRY_CODE` - the prefix for phone numbers in your country (eg `1` for USA)
 - edit `Caddyfile` to use your domain where it says `mydomain.com`
 - run `docker-compose up -d` to build the stack
 - open your domain in a browser to make sure it works

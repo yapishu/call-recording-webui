@@ -34,6 +34,7 @@ services:
       - S3_BUCKET
       - IF_S3=yes
       - SECRET_KEY
+      - COUNTRY_CODE
     restart: unless-stopped
 volumes:
   sftp:

@@ -57,6 +57,7 @@ def validate_user(username, password):
     # create admin user on first login if it doesnt exist
     if username == 'admin' and result is None:
         create_user(username,password)
+        return check_password_hash(result[0], password)
     elif result is None:
         return False
     return check_password_hash(result[0], password)
@@ -97,8 +98,8 @@ def sanitize_phone(phone):
     for char in removers:
         phone.replace(char,'')
     if len(phone) == 10:
-        phone = '+1' + phone
-    elif len(phone) == 11 and phone[0] == '1':
+        phone = f'+{var.ccode}' + phone
+    elif len(phone) > 10 and phone[0] != '+':
         phone = '+' + phone
     return phone
 
@@ -112,7 +113,7 @@ def dict_factory(cursor, row):
 # add a recording to db
 def add_file(uuid,ext,phone,timestamp):
     if len(phone) == 10:
-        phone = '+1' + phone
+        phone = f'+{var.ccode}' + phone
     conn = sqlite3.connect(db_path, isolation_level=None,
         detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
     query = f'INSERT INTO files VALUES (?,?,?,?,?);'
