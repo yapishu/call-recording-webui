@@ -9,7 +9,7 @@ services:
       - "2222:22"
     expose:
       - '2222'
-    command: rec:${SFTP_PW}:1001::rec
+    command: rec:${SFTP_PW}:1001::recs
   caddy:
     image: caddy:latest
     ports:
